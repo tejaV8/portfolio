@@ -1,19 +1,24 @@
 import { Mail, Send } from "lucide-react";
 import { GitHubLogo, LinkedInLogo } from "@/components/BrandLogo";
 
-const contactEmail = "your.email@example.com";
+const contactEmail = "bhanutejavittanala02@gmail.com";
 const linkedInUrl = "https://www.linkedin.com/in/bhanu-teja-715995332/";
 const githubUrl = "https://github.com/";
+const formEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT;
+const formAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
 export default function Contact() {
   const handleSubmit = (event) => {
+    if (formEndpoint) {
+      return;
+    }
+
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
     const name = formData.get("name");
     const email = formData.get("email");
     const message = formData.get("message");
-
     const subject = encodeURIComponent(`Portfolio message from ${name}`);
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\n${message}`
@@ -83,9 +88,15 @@ export default function Contact() {
       </div>
 
       <form
+        action={formEndpoint}
+        method="POST"
         onSubmit={handleSubmit}
         className="mt-8 rounded-lg border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm"
       >
+        {formAccessKey && <input type="hidden" name="access_key" value={formAccessKey} />}
+        <input type="hidden" name="subject" value="New portfolio contact message" />
+        <input type="checkbox" name="botcheck" className="hidden" tabIndex="-1" />
+
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="space-y-2">
             <span className="text-sm font-medium text-zinc-300">Name</span>
@@ -93,6 +104,7 @@ export default function Contact() {
               required
               name="name"
               type="text"
+              autoComplete="name"
               placeholder="Your name"
               className="h-12 w-full rounded-lg border border-white/10 bg-black/30 px-4 text-white outline-none transition placeholder:text-zinc-600 focus:border-cyan-200/60"
             />
@@ -104,6 +116,7 @@ export default function Contact() {
               required
               name="email"
               type="email"
+              autoComplete="email"
               placeholder="you@example.com"
               className="h-12 w-full rounded-lg border border-white/10 bg-black/30 px-4 text-white outline-none transition placeholder:text-zinc-600 focus:border-cyan-200/60"
             />

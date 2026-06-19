@@ -24,7 +24,7 @@ export default function Hero() {
         <p className="px-4 py-2 text-sm text-zinc-300">
           CSE student focused on web development and DSA
         </p>
-      </BorderBeam>
+      </BorderBeam> 
 
       <h1 className="max-w-4xl text-5xl font-semibold tracking-normal text-white md:text-7xl">
         Hi, I&apos;m Bhanu Teja.

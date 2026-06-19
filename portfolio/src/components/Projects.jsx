@@ -2,6 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 import { GitHubLogo } from "@/components/BrandLogo";
 import codeSlateImage from "@/assets/projects/codeslate.png";
 import matriCalcImage from "@/assets/projects/matricalc.png";
+import { GlareHover } from "@/components/ui/glare-hover";
 
 const projects = [
   {
@@ -20,7 +21,7 @@ const projects = [
       "Bcrypt",
       "Cloudflare Workers",
     ],
-    liveUrl: "",
+    liveUrl: "https://codeslate.codeslate.workers.dev",
     githubUrl: "#",
   },
   {
@@ -45,58 +46,67 @@ function ProjectCard({
   githubUrl,
 }) {
   return (
-    <article className="group overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]">
-      <div className="relative h-64 overflow-hidden border-b border-white/10 bg-zinc-950">
-        <img
-          src={image}
-          alt={`${title} ${label} screenshot`}
-          className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-        <div className="absolute bottom-4 left-4 rounded-lg border border-white/10 bg-black/55 px-3 py-2 text-sm text-zinc-200 backdrop-blur">
-          {label}
+    <GlareHover
+      color="#ffffff"
+      opacity={0.18}
+      angle={-35}
+      size={180}
+      duration={800}
+      className="group h-full w-full rounded-lg"
+    >
+      <article className="flex h-full w-full flex-col overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.06]">
+        <div className="relative h-64 overflow-hidden border-b border-white/10 bg-zinc-950">
+          <img
+            src={image}
+            alt={`${title} ${label} screenshot`}
+            className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <div className="absolute bottom-4 left-4 rounded-lg border border-white/10 bg-black/55 px-3 py-2 text-sm text-zinc-200 backdrop-blur">
+            {label}
+          </div>
         </div>
-      </div>
 
-      <div className="p-6">
-        <h3 className="text-2xl font-semibold text-white">{title}</h3>
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-2xl font-semibold text-white">{title}</h3>
 
-        <p className="mt-4 leading-7 text-zinc-400">{description}</p>
+          <p className="mt-4 leading-7 text-zinc-400">{description}</p>
 
-        <div className="mt-6 flex flex-wrap gap-2">
-          {technologies.map((tech) => (
-            <span
-              key={tech}
-              className="rounded-lg border border-white/10 bg-black/20 px-3 py-1.5 text-sm text-zinc-300"
+          <div className="mt-6 flex flex-wrap gap-2">
+            {technologies.map((tech) => (
+              <span
+                key={tech}
+                className="rounded-lg border border-white/10 bg-black/20 px-3 py-1.5 text-sm text-zinc-300"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-auto flex flex-wrap gap-3 pt-8">
+            <a
+              href={liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-zinc-200"
             >
-              {tech}
-            </span>
-          ))}
-        </div>
+              Live Demo
+              <ArrowUpRight className="size-4" />
+            </a>
 
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a
-            href={liveUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-zinc-200"
-          >
-            Live Demo
-            <ArrowUpRight className="size-4" />
-          </a>
-
-          <a
-            href={githubUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-5 py-2.5 text-sm text-white transition hover:bg-white/5"
-          >
-            GitHub
-            <GitHubLogo className="size-4" />
-          </a>
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/10 px-5 py-2.5 text-sm text-white transition hover:bg-white/5"
+            >
+              GitHub
+              <GitHubLogo className="size-4" />
+            </a>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </GlareHover>
   );
 }
 
